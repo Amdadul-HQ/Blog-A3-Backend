@@ -15,19 +15,19 @@ async function main() {
     console.log(error);
   }
 }
+main();
 
 process.on('unhandledRejection', () => {
-    console.log('unhandleRejection is deleted, shutting down....');
-    if (Server) {
-        server.close(() => {
-            process.exit(1);
-        });
-    }
+  console.log(`😈 unahandledRejection is detected , shutting down ...`);
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
+  }
+  process.exit(1);
 });
 
 process.on('uncaughtException', () => {
-    console.log('uncaughtException is deleted, shutting down....');
-    process.exit(1);
+  console.log(`😈 uncaughtException is detected , shutting down ...`);
+  process.exit(1);
 });
-
-main();
