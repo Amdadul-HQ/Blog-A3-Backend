@@ -1,3 +1,4 @@
+import httpStatus from "http-status";
 import { catchAsync } from '../../app/utils/catchAsync';
 import sendResponse from '../../app/utils/sendResponse';
 import { UserService } from './user.service';
@@ -9,7 +10,7 @@ const registerUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Student is created Successfully',
+    message: 'User registered successfully',
     data: result,
   });
 });
