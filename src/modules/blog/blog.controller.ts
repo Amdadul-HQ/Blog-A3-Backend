@@ -9,6 +9,11 @@ import { AppError } from "../../app/errors/AppError";
 const createBlog = catchAsync(async (req, res) => {
   const blog = req.body;
   const author = req?.user?.userId;
+  console.log(author);
+  
+  if(!author){
+    throw new AppError(httpStatus.BAD_REQUEST,"Author is Invalide")
+  }
 
   const payload = { ...blog, author };
 

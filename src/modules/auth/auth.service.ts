@@ -26,13 +26,13 @@ const loginUserInToDB = async (payload: ILoginUser) => {
   ) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password not matched');
   }
-console.log(isUserExists);
+
   const jwtPayload :JwtPayload = {
     userId: isUserExists._id,
     email:isUserExists.email,
     role: isUserExists.role,
   };
-  console.log(jwtPayload);
+
 
   //create token and send to client
   const accessToken = createToken(

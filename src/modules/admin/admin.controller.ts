@@ -40,8 +40,19 @@ const deleteBlog = catchAsync(async (req, res) => {
   }
 });
 
+const getAllUsers = catchAsync(async(req,res)=>{
+    const result = await AdminServices.getAllUsers();
+    sendResponse(res, {
+      success: true,
+      message: 'All User Fatched successfully',
+      statusCode: httpStatus.OK,
+      data:result
+    });
+})
+
 
 export const AdminController = {
     blockUser,
-    deleteBlog
+    deleteBlog,
+    getAllUsers
 }

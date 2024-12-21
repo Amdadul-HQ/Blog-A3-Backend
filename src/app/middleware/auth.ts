@@ -28,8 +28,11 @@ const auth = (...requiredRoles:TUserRole[]) => {
     ) as JwtPayload;
 
 
-     const {email,role} = decoded
+        const {email,role,userId} = decoded
 
+        if(!email || !role || !userId){
+            throw new AppError(httpStatus.FORBIDDEN,"Pleasse Login Again")
+        }
 
         const isUserExists = await User.isUserExists(email)
     

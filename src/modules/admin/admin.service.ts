@@ -13,7 +13,13 @@ const blockUserInToDB = async(id:string)=>{
     return result;
 }
 
+const getAllUsers = async()=>{
+    const result = await User.find();
+    return result;
+}
+
 
 export const AdminServices = {
-    blockUserInToDB
+    blockUserInToDB,
+    getAllUsers
 }

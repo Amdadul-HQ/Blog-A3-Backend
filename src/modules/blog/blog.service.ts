@@ -22,7 +22,6 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
     .search(BlogSearchableFields)
     .filter()
     .sort()
-    .paginate()
     .fields();
      const result = await blogQuery.modelQuery;
      return result;

@@ -50,6 +50,11 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre('find', function (next) {
+  this.find({ isBlocked: { $ne: true } });
+  next();
+});
+
 userSchema.statics.isUserExists = async function (email: string) {
   return await User.findOne({ email }).select('+password +role');
 };

@@ -29,7 +29,7 @@ const blogSchema = new Schema<IBlog,IBlogModel>(
 
 
 blogSchema.pre('find', function (next) {
-  this.find({ isPublished: { $ne: false } });
+  this.find({ isPublished: { $ne: true } });
   next();
 });
 
