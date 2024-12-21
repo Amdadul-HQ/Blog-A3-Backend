@@ -24,9 +24,15 @@ const createBlog = catchAsync(async (req, res) => {
 });
 
 const updateBlog = catchAsync(async(req,res)=>{
+    const { id } = req.params;
 
+    const userId = req?.user?.userId;
 
-    const blogExists = await Blog.isBlogExists(req.params.id)
+    const blogExists = await Blog.isBlogExists(id);
+
+    if (userId != blogExists.author) {
+      throw new AppError(httpStatus.FORBIDDEN, 'Unautorize Access');
+    }
 
     if(!blogExists){
         throw new AppError(httpStatus.NOT_FOUND,'Blog Not Founded')
@@ -61,20 +67,19 @@ const deleteBlog = catchAsync(async(req,res)=>{
     const isBlogExists =await Blog.isBlogExists(id);
 
     const userId = req?.user?.userId;
-    console.log(userId);
-    console.log(isBlogExists.author);
 
     if(userId != isBlogExists.author){
         throw new AppError(httpStatus.FORBIDDEN,"Unautorize Access")
     }
 
     const result = await BlogServices.deleteBlogFromDB(id)
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Blog deleted successfully',
-      data: result,
-    });
+    if(result){
+        sendResponse(res, {
+            success: true,
+            message: 'Blog deleted successfully',
+            statusCode: httpStatus.OK,
+        });
+    }
 })
 
 export const BlogController = {
