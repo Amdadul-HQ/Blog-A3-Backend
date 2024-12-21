@@ -7,7 +7,14 @@ import router from './app/routes';
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors({ origin: ['http://localhost:5173'] }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5173',
+      'https://assigement3-1wjbzh7ts-amdadul-hqs-projects.vercel.app',
+    ],
+  }),
+);
 app.use(cookieParser());
 
 // application routes
