@@ -25,6 +25,7 @@ const userSchema = new Schema<IUser, IUserModel>(
       type: String,
       enum: ['admin', 'user'],
       select: 0,
+      default:'user'
     },
     isBlocked: {
       type: Boolean,
@@ -50,7 +51,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.statics.isUserExists = async function (email: string) {
-  return await User.findOne({ email }).select('+password');
+  return await User.findOne({ email }).select('+password +role');
 };
 
 userSchema.statics.isPasswordMatched = async function (

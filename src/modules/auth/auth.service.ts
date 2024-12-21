@@ -4,10 +4,12 @@ import { AppError } from "../../app/errors/AppError";
 import { createToken } from "./auth.utils";
 import { User } from "../user/user.model";
 import { ILoginUser } from "./auth.interface";
+import { JwtPayload } from "jsonwebtoken";
 
 const loginUserInToDB = async (payload: ILoginUser) => {
   // checking if the user is exist
-  const isUserExists = await User.isUserExists(payload.email);
+  const isUserExists = await User.findOne({email:payload.email}).select("+password +role");
+
 
   if (!isUserExists) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
@@ -24,11 +26,13 @@ const loginUserInToDB = async (payload: ILoginUser) => {
   ) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password not matched');
   }
-
-  const jwtPayload = {
-    email: isUserExists.email,
+console.log(isUserExists);
+  const jwtPayload :JwtPayload = {
+    id: isUserExists._id,
+    email:isUserExists.email,
     role: isUserExists.role,
   };
+  console.log(jwtPayload);
 
   //create token and send to client
   const accessToken = createToken(

@@ -9,8 +9,8 @@ const registerUser = catchAsync(async (req, res) => {
   // send response
   sendResponse(res, {
     success: true,
-    statusCode: 201,
-    message: 'User registered successfully ABafdfasdfasdf',
+    statusCode: httpStatus.CREATED,
+    message: 'User registered successfully',
     data: result,
   });
 });
