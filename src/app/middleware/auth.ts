@@ -61,4 +61,4 @@ import config from "../config";
 //   })
 // };
 
-export default auth;
+// export default auth;

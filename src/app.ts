@@ -11,7 +11,7 @@ app.use(cors({ origin: ['http://localhost:5173'] }));
 app.use(cookieParser());
 
 // application routes
-app.use('/api/v1', router);
+app.use('/api', router);
 
 const getAController = (req: Request, res: Response) => {
   res.send('Hello World!');
@@ -21,14 +21,7 @@ app.get('/', getAController);
 
 app.use(globalErrorHander);
 
-// const test = async (req:Request,res:Response)=>{
 
-//   Promise.reject();
-// }
-
-// app.get('/',test)
-
-// Not Found
 app.use(notFound);
 
 export default app;

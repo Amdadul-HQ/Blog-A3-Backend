@@ -4,10 +4,10 @@ const router = Router();
 
 
 const moduleRoutes = [
-  {
-    path: '/',
-    route: ,
-  },
+  // {
+  //   path: '/',
+  //   route: ,
+  // },
   
 ];
 
