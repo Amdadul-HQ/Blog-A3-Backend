@@ -15,8 +15,8 @@ const createUserValidationSchema = z.object({
       .string()
       .min(1, 'Password is Required')
       .max(16, 'Password can not be more then 20 Characters'),
-    role: z.enum([...Role] as [string, ...string[]]).default('user'),
-    isBlocked:z.boolean().default(false)
+    role: z.enum([...Role] as [string, ...string[]]).default('user').optional(),
+    isBlocked:z.boolean().default(false).optional()
   }),
 });
 
