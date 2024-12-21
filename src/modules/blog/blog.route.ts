@@ -11,7 +11,18 @@ BlogRouter.post(
   '/',
   auth(USER_ROLE.user),
   validateRequest(BlogValidation.blogValidationSchema),
-  BlogController.crateBlog
+  BlogController.createBlog,
 );
+
+BlogRouter.patch('/:id',auth(USER_ROLE.user),
+validateRequest(BlogValidation.updateBlogValidationSchema),
+BlogController.updateBlog
+)
+
+BlogRouter.get('/',
+BlogController.getAllBlog
+)
+
+BlogRouter.delete('/:id',auth(USER_ROLE.user),BlogController.deleteBlog)
 
 export const BlogRoutes = BlogRouter;

@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { IBlog } from "./blog.interface";
+import { IBlog, IBlogModel } from "./blog.interface";
 
-const blogSchema = new Schema<IBlog>(
+const blogSchema = new Schema<IBlog,IBlogModel>(
   {
     title: {
       type: String,
@@ -28,6 +28,15 @@ const blogSchema = new Schema<IBlog>(
 );
 
 
+blogSchema.pre('find', function (next) {
+  this.find({ isPublished: { $ne: false } });
+  next();
+});
+
+blogSchema.statics.isBlogExists = async function (id: string) {
+  return await Blog.findById(id);
+};
+
 blogSchema.set('toJSON', {
   transform: (doc, ret) => {
     delete ret.isPublished;
@@ -39,7 +48,7 @@ blogSchema.set('toJSON', {
 });
 
 
-export const Blog = model<IBlog>(
+export const Blog = model<IBlog,IBlogModel>(
   'Blog',
   blogSchema,
 );

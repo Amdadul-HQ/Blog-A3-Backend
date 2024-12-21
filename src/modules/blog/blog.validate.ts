@@ -8,7 +8,16 @@ export const blogValidationSchema = z.object({
   }),
 });
 
+export const updateBlogValidationSchema = z.object({
+  body: z.object({
+    title: z.string().trim().optional(),
+    content: z.string().trim().optional(),
+    isPublished: z.boolean().default(true),
+  }),
+});
+
 
 export const BlogValidation = {
-    blogValidationSchema
+    blogValidationSchema,
+    updateBlogValidationSchema
 }
